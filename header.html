@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header - Dawn ArtisanCraft Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles - Matching Website CSS Exactly */
+        .site-header {
+            background: #111 !important;
+            color: #fff !important;
+            border: none;
+            box-shadow: 0 7px 34px #2a2f3433, 0 1px 0 #1115;
+        }
+
+        .site-header .container {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            flex-shrink: 0;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: #fff !important;
+        }
+
+        .logo img {
+            height: 62px !important;
+            width: auto;
+            vertical-align: middle;
+            background: #222;
+            border-radius: 12px;
+            margin-right: 1rem;
+            box-shadow: 0 4px 30px rgba(255,255,255,.13);
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff !important;
+        }
+
+        /* Navigation */
+        .main-nav {
+            background: transparent;
+            border-top: none;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            padding: 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 0;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #fff !important;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            transition: color 0.22s, background 0.28s;
+            white-space: nowrap;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #ffe066 !important;
+            background: linear-gradient(90deg, rgba(255,224,102,0.16) 0%, #181818 120%);
+            border-radius: 12px;
+        }
+
+        .nav-menu a.register-btn {
+            background: #ffe066 !important;
+            color: #181818 !important;
+            border-radius: 8px;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .nav-menu a.register-btn:hover {
+            background: #ffed4e !important;
+            color: #181818 !important;
+        }
+
+        .nav-menu a i {
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-header .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu a {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+    </style>
+    <script>
+        // Expose SITE_URL to JS
+        window.SITE_URL = 'https://dawn1.infinityfreeapp.com/513week7';
+    </script>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="https://dawn1.infinityfreeapp.com/513week7/">
+                        <img src="https://dawn1.infinityfreeapp.com/513week7/image/logo.jpg" alt="Dawn ArtisanCraft Marketplace Logo" style="height:62px;vertical-align:middle;">
+                        <span class="logo-text">Dawn ArtisanCraft Marketplace</span>
+                    </a>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/">Home</a></li>
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/products.php">Products</a></li>
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/about.php">About</a></li>
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/contact.php">Contact</a></li>
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/forum.php">Forum</a></li>
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/recruitment.php">Recruitment</a></li>
+                    <!-- Admin link (shown when user is admin) - uncomment if needed -->
+                    <!-- <li><a href="https://dawn1.infinityfreeapp.com/513week7/customers.php">Customers</a></li> -->
+                    <!-- Login/Logout links (shown based on session) -->
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/auth/login.php">Login</a></li>
+                    <li><a href="https://dawn1.infinityfreeapp.com/5-2/" class="register-btn">Register</a></li>
+                    <!-- <li><a href="https://dawn1.infinityfreeapp.com/513week7/auth/logout.php">Logout</a></li> -->
+                    <li><a href="https://dawn1.infinityfreeapp.com/513week7/cart/index.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>

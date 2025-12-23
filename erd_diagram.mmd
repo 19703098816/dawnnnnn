@@ -1,0 +1,106 @@
+erDiagram
+    %% FluentCRM Subscribers Table (wp802 database)
+    wpah_fc_subscribers {
+        bigint id PK "Primary Key, AUTO_INCREMENT"
+        varchar email UK "Unique, Used for login"
+        varchar first_name "Subscriber first name"
+        varchar last_name "Subscriber last name"
+        varchar phone "Stores password for login"
+        varchar status "subscribed, unsubscribed, etc."
+        varchar contact_type "lead, customer, etc."
+        varchar source "FluentForms, etc."
+        timestamp created_at "Registration date"
+        timestamp updated_at "Last update"
+    }
+
+    %% Forum Posts Table (513week7 database)
+    forum_posts {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        int user_id FK "References users.user_id or wpah_fc_subscribers.id"
+        varchar title "Post title"
+        text content "Post content"
+        varchar category "general, products, support, feedback, ideas"
+        timestamp created_at "Post creation date"
+    }
+
+    %% Orders Table (513week7 database)
+    wp_orders {
+        int order_id PK "Primary Key, AUTO_INCREMENT"
+        varchar customer_email FK "References wpah_fc_subscribers.email"
+        text product_ids "JSON array of product IDs"
+        decimal total_amount "Order total amount"
+        datetime order_date "Order creation date"
+        varchar status "pending, processing, completed, cancelled"
+    }
+
+    %% Users Table (513week7 database - optional, for local users)
+    users {
+        int user_id PK "Primary Key, AUTO_INCREMENT"
+        varchar email UK "User email"
+        varchar password "Hashed password"
+        varchar first_name "User first name"
+        varchar last_name "User last name"
+        varchar phone "User phone"
+        varchar role "customer, artisan, admin"
+        tinyint email_verified "Email verification status"
+        varchar status "active, inactive"
+        timestamp created_at "Registration date"
+        timestamp updated_at "Last update"
+    }
+
+    %% Products Table (513week7 database - optional, if stored in DB)
+    products {
+        int product_id PK "Primary Key, AUTO_INCREMENT"
+        varchar name "Product name"
+        text description "Product description"
+        decimal price "Product price"
+        int stock_quantity "Available stock"
+        varchar image_url "Product image path"
+        varchar category "Product category"
+        int artisan_id FK "References artisan_profiles.artisan_id"
+        tinyint is_active "Product status"
+        timestamp created_at "Creation date"
+        timestamp updated_at "Last update"
+    }
+
+    %% Job Applications Table (513week7 database)
+    job_applications {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        varchar first_name "Applicant first name"
+        varchar last_name "Applicant last name"
+        varchar email "Applicant email"
+        varchar phone "Applicant phone"
+        varchar position "Applied position"
+        text experience "Years of experience"
+        text cover_letter "Cover letter content"
+        varchar cv_file_path "CV file path"
+        datetime created_at "Application date"
+    }
+
+    %% Feedback Table (513week7 database)
+    feedback {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        varchar name "Feedback sender name"
+        varchar email "Feedback sender email"
+        varchar subject "Feedback subject"
+        text message "Feedback message"
+        int rating "Rating 1-5"
+        datetime created_at "Feedback date"
+    }
+
+    %% Contact Messages Table (513week7 database)
+    contact_messages {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        varchar name "Contact name"
+        varchar email "Contact email"
+        varchar subject "Message subject"
+        text message "Message content"
+        datetime created_at "Message date"
+    }
+
+    %% Relationships
+    wpah_fc_subscribers ||--o{ wp_orders : "places"
+    wpah_fc_subscribers ||--o{ forum_posts : "creates"
+    users ||--o{ forum_posts : "creates"
+    users ||--o{ wp_orders : "places"
+    products ||--o{ wp_orders : "contained_in"

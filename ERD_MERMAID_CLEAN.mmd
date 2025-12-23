@@ -1,0 +1,214 @@
+erDiagram
+    %% FluentCRM Subscribers Table (wp802 database)
+    wpah_fc_subscribers {
+        bigint id PK "Primary Key, AUTO_INCREMENT"
+        varchar email UK "Unique, Used for login"
+        varchar first_name "Subscriber first name"
+        varchar last_name "Subscriber last name"
+        varchar phone "Stores password for login"
+        varchar status "subscribed, unsubscribed, etc."
+        varchar contact_type "lead, customer, etc."
+        varchar source "FluentForms, etc."
+        timestamp created_at "Registration date"
+        timestamp updated_at "Last update"
+    }
+
+    %% Forum Posts Table (513week7 database)
+    forum_posts {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        int user_id FK "References users.user_id or wpah_fc_subscribers.id"
+        varchar title "Post title"
+        text content "Post content"
+        varchar category "general, products, support, feedback, ideas"
+        timestamp created_at "Post creation date"
+    }
+
+    %% Orders Table (513week7 database)
+    wp_orders {
+        int order_id PK "Primary Key, AUTO_INCREMENT"
+        varchar customer_email FK "References wpah_fc_subscribers.email"
+        text product_ids "JSON array of product IDs"
+        decimal total_amount "Order total amount"
+        datetime order_date "Order creation date"
+        varchar status "pending, processing, completed, cancelled"
+    }
+
+    %% Users Table (513week7 database - optional, for local users)
+    users {
+        int user_id PK "Primary Key, AUTO_INCREMENT"
+        varchar email UK "User email"
+        varchar password "Hashed password"
+        varchar first_name "User first name"
+        varchar last_name "User last name"
+        varchar phone "User phone"
+        varchar role "customer, artisan, admin"
+        tinyint email_verified "Email verification status"
+        varchar status "active, inactive"
+        timestamp created_at "Registration date"
+        timestamp updated_at "Last update"
+    }
+
+    %% Products Table (513week7 database - optional, if stored in DB)
+    products {
+        int product_id PK "Primary Key, AUTO_INCREMENT"
+        varchar name "Product name"
+        text description "Product description"
+        decimal price "Product price"
+        int stock_quantity "Available stock"
+        varchar image_url "Product image path"
+        varchar category "Product category"
+        int artisan_id FK "References artisan_profiles.artisan_id"
+        tinyint is_active "Product status"
+        timestamp created_at "Creation date"
+        timestamp updated_at "Last update"
+    }
+
+    %% Job Applications Table (513week7 database)
+    job_applications {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        varchar first_name "Applicant first name"
+        varchar last_name "Applicant last name"
+        varchar email "Applicant email"
+        varchar phone "Applicant phone"
+        varchar position "Applied position"
+        text experience "Years of experience"
+        text cover_letter "Cover letter content"
+        varchar cv_file_path "CV file path"
+        datetime created_at "Application date"
+    }
+
+    %% Feedback Table (513week7 database)
+    feedback {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        varchar name "Feedback sender name"
+        varchar email "Feedback sender email"
+        varchar subject "Feedback subject"
+        text message "Feedback message"
+        int rating "Rating 1-5"
+        datetime created_at "Feedback date"
+    }
+
+    %% Contact Messages Table (513week7 database)
+    contact_messages {
+        int id PK "Primary Key, AUTO_INCREMENT"
+        varchar name "Contact name"
+        varchar email "Contact email"
+        varchar subject "Message subject"
+        text message "Message content"
+        datetime created_at "Message date"
+    }
+
+    %% Shopping Cart Table (513week7 database)
+    ac_cart {
+        int cart_id PK "Primary Key, AUTO_INCREMENT"
+        int user_id FK "References users.user_id or wpah_fc_subscribers.id"
+        varchar session_id "Session identifier for guest users"
+        datetime created_at "Cart creation date"
+        datetime updated_at "Last update date"
+    }
+
+    %% Cart Items Table (513week7 database)
+    ac_cart_items {
+        int item_id PK "Primary Key, AUTO_INCREMENT"
+        int cart_id FK "References ac_cart.cart_id"
+        int product_id FK "References products.product_id"
+        int quantity "Item quantity"
+        decimal price "Item price at time of addition"
+        datetime created_at "Item addition date"
+    }
+
+    %% Product Categories Table (513week7 database)
+    product_categories {
+        int category_id PK "Primary Key, AUTO_INCREMENT"
+        varchar category_name UK "Unique category name"
+        varchar category_slug "URL-friendly category identifier"
+        text description "Category description"
+        int parent_category_id FK "References product_categories.category_id for subcategories"
+        int display_order "Display order for sorting"
+        tinyint is_active "Category active status"
+        timestamp created_at "Category creation date"
+    }
+
+    %% Product Reviews Table (513week7 database)
+    product_reviews {
+        int review_id PK "Primary Key, AUTO_INCREMENT"
+        int product_id FK "References products.product_id"
+        int user_id FK "References users.user_id or wpah_fc_subscribers.id"
+        varchar reviewer_name "Reviewer name"
+        varchar reviewer_email "Reviewer email"
+        int rating "Rating from 1 to 5"
+        text review_text "Review content"
+        tinyint is_approved "Review approval status"
+        datetime created_at "Review creation date"
+        datetime updated_at "Last update date"
+    }
+
+    %% User Sessions Table (513week7 database)
+    user_sessions {
+        int session_id PK "Primary Key, AUTO_INCREMENT"
+        varchar session_token UK "Unique session token"
+        int user_id FK "References users.user_id or wpah_fc_subscribers.id"
+        varchar ip_address "User IP address"
+        varchar user_agent "Browser user agent"
+        datetime last_activity "Last activity timestamp"
+        datetime expires_at "Session expiration date"
+        tinyint is_active "Session active status"
+    }
+
+    %% Order Items Table (513week7 database - detailed order breakdown)
+    order_items {
+        int item_id PK "Primary Key, AUTO_INCREMENT"
+        int order_id FK "References wp_orders.order_id"
+        int product_id FK "References products.product_id"
+        int quantity "Item quantity ordered"
+        decimal unit_price "Price per unit at time of order"
+        decimal total_price "Total price for this item"
+        datetime created_at "Item creation date"
+    }
+
+    %% Newsletter Subscribers Table (513week7 database)
+    newsletter_subscribers {
+        int subscriber_id PK "Primary Key, AUTO_INCREMENT"
+        varchar email UK "Subscriber email address"
+        varchar first_name "Subscriber first name"
+        varchar last_name "Subscriber last name"
+        tinyint is_active "Subscription active status"
+        datetime subscribed_at "Subscription date"
+        datetime unsubscribed_at "Unsubscription date"
+        varchar unsubscribe_token "Unsubscribe token"
+    }
+
+    %% System Logs Table (513week7 database)
+    system_logs {
+        int log_id PK "Primary Key, AUTO_INCREMENT"
+        varchar log_type "Log type: error, info, warning, debug"
+        varchar module "Module or component name"
+        text message "Log message content"
+        text context "Additional context data as JSON"
+        varchar user_id "User ID if applicable"
+        varchar ip_address "IP address of request"
+        datetime created_at "Log creation timestamp"
+    }
+
+    %% Relationships - Core Tables
+    wpah_fc_subscribers ||--o{ wp_orders : "places"
+    wpah_fc_subscribers ||--o{ forum_posts : "creates"
+    wpah_fc_subscribers ||--o{ ac_cart : "has"
+    wpah_fc_subscribers ||--o{ product_reviews : "writes"
+    wpah_fc_subscribers ||--o{ user_sessions : "has"
+    
+    users ||--o{ forum_posts : "creates"
+    users ||--o{ wp_orders : "places"
+    users ||--o{ ac_cart : "has"
+    users ||--o{ product_reviews : "writes"
+    users ||--o{ user_sessions : "has"
+    
+    products ||--o{ wp_orders : "contained_in"
+    products ||--o{ ac_cart_items : "added_to"
+    products ||--o{ product_reviews : "has"
+    products ||--o{ order_items : "included_in"
+    products ||--o{ product_categories : "belongs_to"
+    
+    ac_cart ||--o{ ac_cart_items : "contains"
+    wp_orders ||--o{ order_items : "includes"
+    product_categories ||--o{ product_categories : "parent_of"
